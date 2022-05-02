@@ -1,0 +1,1 @@
+web: java -jar -cp target/classes:target/dependency/* com.tasklist.api.TasklistApiApplication
