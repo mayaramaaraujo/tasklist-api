@@ -1,13 +1,17 @@
 package com.tasklist.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tasklist.api.utils.DateFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Data
@@ -33,12 +37,16 @@ public class Task {
     @JsonIgnore
     private User user;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
+
+    private String updatedDate;
 
     public Task(String title, String description, User user) {
         this.title = title;
         this.description = description;
         this.user = user;
-        this.createdDate = LocalDateTime.now();
+        this.createdDate = DateFormat.dateFormat(LocalDateTime.now());
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.tasklist.api.services;
 
 import com.tasklist.api.dtos.UserDTO;
 import com.tasklist.api.exceptions.customexceptions.InvalidUserException;
+import com.tasklist.api.exceptions.customexceptions.UserExistsException;
 import com.tasklist.api.models.User;
 import com.tasklist.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User findUser(UUID userId) {
-        if(!userExists(userId)) {
-            throw new InvalidUserException("Usuário não existe. Por favor, cadastre-se");
+    public User userById(String userId) {
+        Optional<User> user = userRepository.findById(UUID.fromString(userId));
+
+        if(!user.isPresent()) {
+            throw new InvalidUserException("Usuário não existe.");
         }
 
-        return getUser(userId.toString());
+        return user.get();
     }
 
     public boolean userExists(UUID userId) {
@@ -31,14 +34,16 @@ public class UserService {
     public User registerUser(UserDTO userDTO) {
         User userRegister = userDTO.convertToUser();
         userRepository.save(userRegister);
-        return getUser(userRegister.getId().toString());
-    }
-
-    public User getUser(String userId) {
-       return userRepository.findById(UUID.fromString(userId)).get();
+        return userById(userRegister.getId().toString());
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
+
+        if(user != null) {
+            throw new UserExistsException("Usuário já existe.");
+        }
+
+        return user;
     }
 }

@@ -20,22 +20,22 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @Autowired
-    UserService userService;
-
     @PostMapping("/{userId}")
     public ResponseEntity<?> addTask(@RequestBody @Valid TaskDTO taskDTO, @PathVariable(required = true) String userId) {
-
         Task task = taskService.addTask(taskDTO, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(task);
-
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getTasksByUser(@PathVariable(required = true) String userId) {
-
-        List<Task> task = taskService.getTasks(userId);
+    public ResponseEntity<?> tasksByUserId(@PathVariable(required = true) String userId) {
+        List<Task> task = taskService.tasksByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(task);
 
+    }
+
+    @PutMapping("/{userId}/{taskId}")
+    public ResponseEntity<?> updateTask(@PathVariable String userId, @PathVariable String taskId, @RequestBody TaskDTO taskDTO) {
+        Task task = taskService.update(userId, taskId, taskDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 }

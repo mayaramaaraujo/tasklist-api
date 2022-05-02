@@ -1,6 +1,7 @@
 package com.tasklist.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tasklist.api.dtos.UserDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,9 @@ public class User {
 
     public User(String username) {
         this.username = username;
+    }
+
+    public UserDTO convertToUserDTO() {
+        return new UserDTO(id, username);
     }
 }

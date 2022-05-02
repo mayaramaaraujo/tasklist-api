@@ -55,7 +55,7 @@ public class TaskControllerTest {
         task.setId(UUID.randomUUID());
 
         when(taskService.addTask(new TaskDTO(), "1234")).thenReturn(task);
-        when(taskService.getTasks(user.getId().toString())).thenReturn(taskList);
+        when(taskService.tasksByUserId(user.getId().toString())).thenReturn(taskList);
     }
 
     @Test

@@ -41,7 +41,7 @@ public class UserControllerTest {
         user.setId(UUID.randomUUID());
         user.setUsername("username");
 
-        when(userService.getUser("1234")).thenReturn(user);
+        when(userService.userById("1234")).thenReturn(user);
         when(userRepository.getById(user.getId())).thenReturn(user);
     }
 
