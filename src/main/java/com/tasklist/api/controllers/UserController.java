@@ -30,6 +30,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUser(@PathVariable(required = true) String userId) {
         User user = userService.userById(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(user.convertToUserDTO());
+        UserDTO userDTO = user.convertToUserDTO();
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 }
