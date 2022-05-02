@@ -3,7 +3,6 @@ package com.tasklist.api.controllers;
 import com.tasklist.api.dtos.TaskDTO;
 import com.tasklist.api.models.Task;
 import com.tasklist.api.services.TaskService;
-import com.tasklist.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +36,11 @@ public class TaskController {
     public ResponseEntity<?> updateTask(@PathVariable String userId, @PathVariable String taskId, @RequestBody TaskDTO taskDTO) {
         Task task = taskService.update(userId, taskId, taskDTO);
         return ResponseEntity.status(HttpStatus.OK).body(task);
+    }
+
+    @DeleteMapping("/{userId}/{taskId}")
+    public ResponseEntity<?> deleteTask(@PathVariable String userId, @PathVariable String taskId) {
+        taskService.delete(userId, taskId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

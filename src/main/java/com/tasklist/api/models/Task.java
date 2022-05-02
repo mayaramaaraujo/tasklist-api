@@ -32,7 +32,7 @@ public class Task {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;

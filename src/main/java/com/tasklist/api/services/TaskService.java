@@ -61,4 +61,19 @@ public class TaskService {
 
         return task.get();
     }
+
+    public void delete(String userId, String taskId) {
+
+        if(!userService.userExists(UUID.fromString(userId))) {
+            throw new UserExistsException("Usuário não existe.");
+        }
+
+        Optional<Task> task = taskRepository.findById(UUID.fromString(taskId));
+
+        if(task.isEmpty()) {
+            throw new TastNotFoundException("Tarefa não encontrada. Por favor, passe um ID válido.");
+        }
+
+        taskRepository.delete(task.get());
+    }
 }
