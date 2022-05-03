@@ -56,6 +56,10 @@ public class TaskService {
             task.get().setDescription(taskDTO.getDescription());
         }
 
+        if(taskDTO.isDone() != task.get().isDone()) {
+            task.get().setDone(taskDTO.isDone());
+        }
+
         task.get().setUpdatedDate(DateFormat.dateFormat(LocalDateTime.now()));
         taskRepository.save(task.get());
 

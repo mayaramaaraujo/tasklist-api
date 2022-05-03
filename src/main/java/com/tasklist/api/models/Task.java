@@ -6,12 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Data
@@ -37,16 +34,18 @@ public class Task {
     @JsonIgnore
     private User user;
 
+    private boolean done = false;
+
     private String createdDate;
 
     private String updatedDate;
 
-    public Task(String title, String description, User user) {
+    public Task(String title, String description, Boolean done, User user) {
         this.title = title;
         this.description = description;
         this.user = user;
         this.createdDate = DateFormat.dateFormat(LocalDateTime.now());
+        this.done = done;
     }
-
 
 }
