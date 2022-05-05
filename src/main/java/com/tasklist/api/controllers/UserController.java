@@ -4,11 +4,13 @@ import com.tasklist.api.dtos.UserDTO;
 import com.tasklist.api.models.User;
 import com.tasklist.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @CrossOrigin
 @RestController
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getUserByUsername(@RequestBody String username) {
+    public ResponseEntity<?> getUserByUsername(@RequestParam String username) {
         User user = userService.findByUsername(username);
         UserDTO userDTO = user.convertToUserDTO();
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
