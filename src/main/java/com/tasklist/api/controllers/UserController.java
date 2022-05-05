@@ -33,4 +33,11 @@ public class UserController {
         UserDTO userDTO = user.convertToUserDTO();
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getUserByUsername(@RequestBody String username) {
+        User user = userService.findByUsername(username);
+        UserDTO userDTO = user.convertToUserDTO();
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+    }
 }
