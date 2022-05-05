@@ -37,11 +37,21 @@ public class UserService {
         return userById(userRegister.getId().toString());
     }
 
-    public User findByUsername(String username) {
+    public User userNameExists(String username) {
         User user = userRepository.findByUsername(username);
 
         if(user != null) {
             throw new UserExistsException("Usuário já existe.");
+        }
+
+        return user;
+    }
+
+    public User findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if(user == null) {
+            throw new InvalidUserException("Usuário não existe");
         }
 
         return user;

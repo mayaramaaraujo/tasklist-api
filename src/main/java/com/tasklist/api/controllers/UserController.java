@@ -21,7 +21,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody @Valid UserDTO userDTO) {
 
-        userService.findByUsername(userDTO.getUsername());
+        userService.userNameExists(userDTO.getUsername());
         User user = userService.registerUser(userDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
