@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> getUserByUsername(@RequestBody String username) {
         User user = userService.findByUsername(username);
         UserDTO userDTO = user.convertToUserDTO();
